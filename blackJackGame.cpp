@@ -191,6 +191,7 @@ int main()
     if (money <= 0)
     {
       std::cout << "You are out of money" << std::endl;
+      std::cin.get();
       break;
     }
     else std::cout << "Would you like to play again? (y/n)" << std::endl;
@@ -200,6 +201,7 @@ int main()
     {
       std::cout << "Thanks for playing!" << std::endl;
       std::cout << "You leave with $" << money << std::endl;
+      std::cin;
       break;
     }
   }
