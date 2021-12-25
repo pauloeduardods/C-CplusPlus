@@ -21,3 +21,13 @@
 3. Rodar o programa `./bitcoin.out`
 
 OBS: Caso seu openssl tenha sido instalado em outro diretorio aponte o caminho corretamente.
+
+## Como compilar e rodar o primeNumbers
+
+### Ubuntu
+
+1. Entrar no diretorio `cd primeNumbers`
+
+2. Compilar o código `make all`
+
+3. Rodar o programa `./calcPrimes.out`
