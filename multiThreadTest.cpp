@@ -4,7 +4,7 @@
 #include <atomic>
 
 const int MAX_NUMBER = 100000;
-std::atomic<bool> sla{false};
+std::atomic<bool> stopProcess{false};
 
 void print(int n, const std::string &str)
 {
@@ -38,7 +38,7 @@ int isPrimeLoop(int start_Number, int end_Number)
 	int numberOfPrimes = 0;
 	for (int i = start_Number; i < end_Number; i++)
 	{
-		if (sla.load())
+		if (stopProcess.load())
 		{
 			break;
 		}
@@ -48,7 +48,7 @@ int isPrimeLoop(int start_Number, int end_Number)
 			primeNumbers.push_back(i);
 		}
 	}
-	if (sla.load()) return 0;
+	if (stopProcess.load()) return 0;
 	std::cout << "There are " << numberOfPrimes << " prime numbers between " <<  start_Number << " and " << end_Number << ".\n";
 	std::cout << "The prime numbers are: ";
 	std::cout << "[";
@@ -63,7 +63,7 @@ int isPrimeLoop(int start_Number, int end_Number)
 			std::cout << primeNumbers[i] << ", ";
 		}
 	}
-	sla.store(true);
+	stopProcess.store(true);
 	std::cout << "]\n";
 	return 0;
 }
@@ -85,7 +85,7 @@ int main()
 	}
 	std::cout << threads[0].joinable() << std::endl;
 	std::cout << "Done" << std::endl;
-	std::cout << sla << std::endl;
+	std::cout << stopProcess << std::endl;
 
 	return 0;
 }
