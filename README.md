@@ -24,7 +24,7 @@ OBS: Caso seu openssl tenha sido instalado em outro diretorio aponte o caminho c
 
 ## Como compilar e rodar o primeNumbers
 
-### Ubuntu
+### Ubuntu && Macos
 
 1. Entrar no diretorio `cd primeNumbers`
 
