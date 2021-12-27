@@ -31,3 +31,11 @@ OBS: Caso seu openssl tenha sido instalado em outro diretorio aponte o caminho c
 2. Compilar o código `make all`
 
 3. Rodar o programa `./calcPrimes.out`
+
+## Como compilar e rodar o multiThreadTest
+
+### Ubuntu
+
+1. Compilar o arquivo multiThreadTest.cpp `g++ multiThreadTest.cpp -o multiThreadTest.out -pthread`
+
+2. Rodar o arquivo `./multiThreadTest.out`
