@@ -163,7 +163,7 @@ int main(int argc, char **argv)
   }
   cout << "Difficulty: " << difficulty << "\n";
   cout << "Num of Threads: " << numOfThreads << "\n";
-  cout << "\n\Calculating...\n\n\n";
+  cout << "\n\nCalculating...\n\n\n";
 
   auto t1 = std::chrono::high_resolution_clock::now();
   nonceResult = nonceCalculatorWThreads(stringToHash, numOfThreads, difficulty);
