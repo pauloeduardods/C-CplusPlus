@@ -32,7 +32,13 @@ OBS: Caso seu openssl tenha sido instalado em outro diretorio aponte o caminho c
 
 2. Compilar o código `g++ multiThreadNonceCalc.cpp -o nonce-calc.out -lcrypto -pthread`
 
-#### Como utilizar
+#### Macos
+
+1. Instalar a biblioteca OpenSSL `brew install openssl`
+
+2. Compilar o código `g++ -std=c++11 multiThreadNonceCalc.cpp -o nonce-calc.out -I /opt/homebrew/opt/openssl/include -L /opt/homebrew/opt/openssl/lib -pthread -lcrypto`
+
+### Como utilizar
 
 
 
