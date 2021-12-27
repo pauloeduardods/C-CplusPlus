@@ -34,7 +34,9 @@
           "name": "ubuntu",
           "includePath": [
             "/usr/lib/x86_64-linux-gnu/"
-          ]
+          ],
+          "cStandard": "c17",
+          "cppStandard": "c++11"
         }
     ],
     "version": 4

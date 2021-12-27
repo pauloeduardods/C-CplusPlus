@@ -40,7 +40,14 @@ OBS: Caso seu openssl tenha sido instalado em outro diretorio aponte o caminho c
 
 ### Como utilizar
 
+Para conseguir ver todos os comandos disponíveis para o programa, digite `./nonce-calc.out -h`
 
+"-s" String que será utilizada para gerar o hash
+"-d" Dificuldade do problema [numeros de "0" na frente do hash(default: 6)]
+"-t" Número de threads (default: full)
+"-e" Apenas fazer o hash da string, sem fazer o cálculo do nonce [Sem parametro]
+"-n" Nonce inicial, para conferir resultado ou testar outros nonces manualmente [Apenas funciona com o comando "-e"]
+"-h" Mostrar mensagem de ajuda
 
 ## Como compilar e rodar o primeNumbers
 
