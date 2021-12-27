@@ -22,6 +22,20 @@
 
 OBS: Caso seu openssl tenha sido instalado em outro diretorio aponte o caminho corretamente.
 
+## multiThreadNonceCalc.cpp
+
+### Compilar
+
+#### Ubuntu
+
+1. Instalar a biblioteca OpenSSL `sudo apt install libssl-dev`
+
+2. Compilar o código `g++ multiThreadNonceCalc.cpp -o nonce-calc.out -lcrypto -pthread`
+
+### Como utilizar
+
+
+
 ## Como compilar e rodar o primeNumbers
 
 ### Ubuntu && Macos

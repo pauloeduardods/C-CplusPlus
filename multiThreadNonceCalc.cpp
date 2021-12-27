@@ -1,6 +1,9 @@
 #include <iostream>
+#include <cstring>
 #include <thread>
 #include <vector>
+#include <sstream>
+#include <algorithm>
 #include <atomic>
 #include <openssl/sha.h>
 #include <iomanip>
@@ -41,20 +44,110 @@ void nonceCalculator(std::string string, int difficulty, int* nonceResult)
   }
 };
 
-int main() {
+int nonceCalculatorWThreads(std::string string, int numOfThreads, int difficulty)
+{
   int nonceResult;
-
-  const auto processor_count = std::thread::hardware_concurrency();
-
-  std::thread threads[processor_count];
-
-  for (int i = 0; i < processor_count; i++) {
-    threads[i] = std::thread(nonceCalculator, "teste", 6, &nonceResult);
+  std::thread threads[numOfThreads];
+  for (int i = 0; i < numOfThreads; i++) {
+    threads[i] = std::thread(nonceCalculator, string, difficulty, &nonceResult);
   }
-
-  for (auto &th : threads) {
+  for (auto &th : threads) 
+  {
     th.join();
   }
+  return nonceResult;
+};
+
+void printHelpMessage(char **argv, int processor_count)
+{
+  using std::cout;
+  cout << "Usage: " << argv[0] << " <command> [param] \n";
+  cout << "Commands:\n";
+  cout << "-s : String to Hash eg: [nonce-calc -s \"String to hash\"] REQUIRED\n";
+  cout << "-d : Difficulty can be 1 to 32 Default: 6\n";
+  cout << "-t : Num of threads [full or 1 to " << processor_count << "] Default: full\n";
+  cout << "-e : This will only hash your string\n";
+  cout << "-n : Nonce, it only works with \"-e\" command\n";
+  cout << "-h : Print this message\n";
+}
+
+int main(int argc, char **argv)
+{
+  using std::cout;
+  const auto processor_count = std::thread::hardware_concurrency();
+  
+  std::string stringToHash;
+  int difficulty = 6, numOfThreads = processor_count, nonceResult;
+  bool onlyHash = false;
+
+  std::vector<std::string> args = {"-s", "-d", "-t", "-e", "-n", "-h"};
+  for (int i = 1; i < argc; i += 2)
+  {
+    if (std::find(args.begin(), args.end(), argv[i]) != args.end() && std::strcmp(argv[i], "-h") != 0)
+    {
+      if (std::strcmp(argv[i], "-s") == 0)
+      {
+        stringToHash = argv[i + 1];
+      }
+      else if (std::strcmp(argv[i], "-d") == 0)
+      {
+        int newDifficulty;
+        std::stringstream number(argv[i + 1]);
+        number >> newDifficulty;
+        if (newDifficulty > 0 && newDifficulty <= 32)
+        {
+          difficulty = newDifficulty;
+        }
+        else
+        {
+          cout << "\n\nDifficulty out of range [0-32]\n\n";
+          return 1;
+        }
+      }
+      else if (std::strcmp(argv[i], "-t") == 0)
+      {
+        if (std::strcmp(argv[i + 1], "full") == 0)
+        {
+          numOfThreads = processor_count;
+        }
+        else
+        {
+          int newThreadNum;
+          std::stringstream number(argv[i + 1]);
+          number >> newThreadNum;
+          if (newThreadNum > 0 && newThreadNum <= processor_count)
+          {
+            numOfThreads = newThreadNum;
+          }
+          else
+          {
+            cout << "\n\nThreads out of range [1-" << processor_count << "]\n\n";
+            return 1;
+          }
+        }
+      }
+      else if (std::strcmp(argv[i], "-e") == 0)
+      {
+        onlyHash = true;
+        i--;
+      }
+      else if (std::strcmp(argv[i], "-n") == 0)
+      {
+        std::stringstream number(argv[i + 1]);
+        number >> nonceResult;
+      }
+    } else {
+      printHelpMessage(argv, processor_count);
+      return 1;
+    }
+  }
+
+  cout << stringToHash << "\n";
+  cout << difficulty << "\n";
+  cout << numOfThreads << "\n";
+  cout << nonceResult << "\n";
+  cout << onlyHash << "\n";
+  nonceResult = nonceCalculatorWThreads(stringToHash, numOfThreads, difficulty);
 
   std::cout << nonceResult << "\n";
-}
+};
