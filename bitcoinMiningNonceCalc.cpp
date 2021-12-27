@@ -23,8 +23,8 @@ std::string sha256(const std::string str)
 
 int main()
 {
-  int nonce = 0, difficulty = 5;
-  std::string stringToHash = "stringToHash";
+  int nonce = 0, difficulty = 6;
+  std::string stringToHash = "slaa";
   while (true)
   {
     std::string newString = stringToHash + std::to_string(nonce);

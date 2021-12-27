@@ -7,6 +7,7 @@
 #include <atomic>
 #include <openssl/sha.h>
 #include <iomanip>
+#include <chrono>
 
 std::atomic<bool> stopProcess{false};
 std::atomic<int> nonce{0};
@@ -66,7 +67,7 @@ void printHelpMessage(char **argv, int processor_count)
   cout << "-s : String to Hash eg: [nonce-calc -s \"String to hash\"] REQUIRED\n";
   cout << "-d : Difficulty can be 1 to 32 Default: 6\n";
   cout << "-t : Num of threads [full or 1 to " << processor_count << "] Default: full\n";
-  cout << "-e : This will only hash your string\n";
+  cout << "-e : This will ONLY hash your string (No params) [\"-d\" and \"-t\" will not work]\n";
   cout << "-n : Nonce, it only works with \"-e\" command\n";
   cout << "-h : Print this message\n";
 }
@@ -77,8 +78,8 @@ int main(int argc, char **argv)
   const auto processor_count = std::thread::hardware_concurrency();
   
   std::string stringToHash;
-  int difficulty = 6, numOfThreads = processor_count, nonceResult;
-  bool onlyHash = false;
+  unsigned int difficulty = 6, numOfThreads = processor_count, nonceResult = 0;
+  bool onlyHash = false, withNonce = false;
 
   std::vector<std::string> args = {"-s", "-d", "-t", "-e", "-n", "-h"};
   for (int i = 1; i < argc; i += 2)
@@ -135,6 +136,7 @@ int main(int argc, char **argv)
       {
         std::stringstream number(argv[i + 1]);
         number >> nonceResult;
+        withNonce = true;
       }
     } else {
       printHelpMessage(argv, processor_count);
@@ -142,12 +144,35 @@ int main(int argc, char **argv)
     }
   }
 
-  cout << stringToHash << "\n";
-  cout << difficulty << "\n";
-  cout << numOfThreads << "\n";
-  cout << nonceResult << "\n";
-  cout << onlyHash << "\n";
-  nonceResult = nonceCalculatorWThreads(stringToHash, numOfThreads, difficulty);
+  cout << "String: \"" << stringToHash << "\"\n";
+  if (onlyHash)
+  {
+    std::string hash;
+    if (!withNonce)
+    {
+      hash = sha256(stringToHash);
+    }
+    else
+    {
+      hash = sha256(stringToHash + std::to_string(nonceResult));
+      cout << "Nonce: " << nonceResult << "\n";
+      cout << "Full string: \"" << stringToHash + std::to_string(nonceResult) << "\"\n";
+    }
+    cout << "Hash result: \"" << hash << "\"\n";
+    return 0;
+  }
+  cout << "Difficulty: " << difficulty << "\n";
+  cout << "Num of Threads: " << numOfThreads << "\n";
+  cout << "\n\Calculating...\n\n\n";
 
-  std::cout << nonceResult << "\n";
+  auto t1 = std::chrono::high_resolution_clock::now();
+  nonceResult = nonceCalculatorWThreads(stringToHash, numOfThreads, difficulty);
+  auto t2 = std::chrono::high_resolution_clock::now();
+  auto execTime = std::chrono::duration_cast<std::chrono::seconds>(t2 - t1);
+  std::string hash = sha256(stringToHash + std::to_string(nonceResult));
+  cout << "Nonce: " << nonceResult << "\n";
+  cout << "Full string: \"" << stringToHash + std::to_string(nonceResult) << "\"\n";
+  cout << "Hash result: \"" << hash << "\"\n";
+  cout << "Exec Time: " << execTime.count() << "s\n";
+  return 0;
 };
