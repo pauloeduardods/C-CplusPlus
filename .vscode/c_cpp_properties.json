@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "Mac",
+            "name": "Mac2",
             "includePath": [
                 "${workspaceFolder}/**",
                 "/opt/homebrew/opt/openssl/include",
@@ -14,39 +14,28 @@
             "cStandard": "c17",
             "cppStandard": "c++11",
             "intelliSenseMode": "macos-clang-arm64"
+        },
+        {
+          "name": "Mac",
+          "includePath": [
+            "${workspaceFolder}/**",
+            "/opt/homebrew/opt/openssl/include",
+          ],
+          "defines": [],
+          "macFrameworkPath": [
+            "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+          ],
+          "compilerPath": "/usr/bin/clang",
+          "cStandard": "c17",
+          "cppStandard": "c++98",
+          "intelliSenseMode": "macos-clang-arm64"
+        },
+        {
+          "name": "ubuntu",
+          "includePath": [
+            "/usr/lib/x86_64-linux-gnu/"
+          ]
         }
     ],
     "version": 4
 }
-
-// {
-//     "configurations": [
-//         {
-//             "name": "Mac",
-//             "includePath": [
-//                 "${workspaceFolder}/**",
-//                 "/opt/homebrew/opt/openssl/include",
-//             ],
-//             "defines": [],
-//             "macFrameworkPath": [
-//                 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
-//             ],
-//             "compilerPath": "/usr/bin/clang",
-//             "cStandard": "c17",
-//             "cppStandard": "c++98",
-//             "intelliSenseMode": "macos-clang-arm64"
-//         }
-//     ],
-//     "version": 4
-// }
-
-// {
-//     "configurations": [
-//         {
-//             "includePath": [
-//               "/usr/lib/x86_64-linux-gnu/"
-//             ]
-//         }
-//     ],
-//     "version": 4
-// }
