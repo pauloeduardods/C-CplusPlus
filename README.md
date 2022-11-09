@@ -1,6 +1,6 @@
 # C-CplusPlus
- Relearning C and C++
 
+Relearning C and C++
 
 ## Como compilar e rodar o bitcoinMiningNonceCalc.cpp
 
@@ -40,8 +40,6 @@ OBS: Caso seu openssl tenha sido instalado em outro diretorio aponte o caminho c
 
 ### Como utilizar
 
-
-
 ## Como compilar e rodar o primeNumbers
 
 ### Ubuntu && Macos
@@ -59,3 +57,11 @@ OBS: Caso seu openssl tenha sido instalado em outro diretorio aponte o caminho c
 1. Compilar o arquivo multiThreadTest.cpp `g++ multiThreadTest.cpp -o multiThreadTest.out -pthread`
 
 2. Rodar o arquivo `./multiThreadTest.out`
+
+## Como compilar e rodar o gFunc
+
+### Ubuntu && Macos
+
+1. Compular o código `gcc -o output.o gFunc.c`
+
+2. Rodar o programa `./output.o`
