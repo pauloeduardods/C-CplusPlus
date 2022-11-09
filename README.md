@@ -1,6 +1,6 @@
 # C-CplusPlus
- Relearning C and C++
 
+Relearning C and C++
 
 ## Como compilar e rodar o bitcoinMiningNonceCalc.cpp
 
@@ -66,3 +66,11 @@ Para conseguir ver todos os comandos disponíveis para o programa, digite `./non
 1. Compilar o arquivo multiThreadTest.cpp `g++ multiThreadTest.cpp -o multiThreadTest.out -pthread`
 
 2. Rodar o arquivo `./multiThreadTest.out`
+
+## Como compilar e rodar o gFunc
+
+### Ubuntu && Macos
+
+1. Compular o código `gcc -o output.o gFunc.c`
+
+2. Rodar o programa `./output.o`
